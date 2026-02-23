@@ -14,364 +14,264 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <style>
-        :root {
-            --primary: #3b82f6;
-            --primary-dark: #1d4ed8;
-            --secondary: #6366f1;
-            --accent: #10b981;
-            --background: #0f172a;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: rgba(255, 255, 255, 0.1);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.125);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top right, #1e293b, #0f172a);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 20px; /* Reducido de 40px para móviles */
-            min-height: 100vh;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .resume-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 24px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .header {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-            padding: 60px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .profile-img-container {
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .profile-img-container::after {
-            content: '';
-            position: absolute;
-            inset: -5px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            z-index: -1;
-            filter: blur(8px);
-            opacity: 0.6;
-        }
-
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.8);
-            object-fit: cover;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .header-text h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-        }
-
-        .header-text .title {
-            font-size: 1.4rem;
-            color: var(--primary);
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-
-        .contact-bar {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1.6fr 1fr;
-            background: var(--border);
-            gap: 1px;
-        }
-
-        .left-column, .right-column {
-            background: var(--background);
-            padding: 40px;
-        }
-
-        .section { margin-bottom: 40px; }
-
-        .section-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, var(--primary), transparent);
-        }
-
-        .summary-box {
-            background: var(--glass-bg);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            border-left: 4px solid var(--primary);
-        }
-
-        .experience-item {
-            margin-bottom: 30px;
-            padding-left: 20px;
-            border-left: 2px solid var(--border);
-            position: relative;
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -9px;
-            top: 0;
-            width: 16px;
-            height: 16px;
-            background: var(--background);
-            border: 3px solid var(--primary);
-            border-radius: 50%;
-        }
-
-        .exp-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
-
-        .company { font-size: 1.1rem; font-weight: 700; }
-        .position { color: var(--primary); font-weight: 600; }
-        .date { color: var(--text-muted); font-size: 0.85rem; }
-
-        .skills-grid { display: flex; flex-direction: column; gap: 15px; }
-        .skill-category {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .skill-tag {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            border: 1px solid var(--border);
-        }
-
-        .achievement-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 3px solid var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .achievement-value { font-size: 1.3rem; font-weight: 700; color: var(--primary); display: block; }
-
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 850px) {
-            body { padding: 10px; }
-
-            .header { padding: 40px 20px; }
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
-            }
-
-            .header-text h1 { font-size: 2.2rem; }
-            .header-text .title { font-size: 1.1rem; }
-
-            .contact-bar { justify-content: center; }
-            .contact-item { width: 100%; justify-content: center; }
-
-            .main-content { grid-template-columns: 1fr; }
-            .left-column, .right-column { padding: 25px 20px; }
-
-            .exp-header { flex-direction: column; }
-            
-            .profile-img {
-                width: 120px;
-                height: 120px;
-            }
-        }
-
-        @media print {
-            body { background: white; color: #1e293b; padding: 0; }
-            .resume-container { box-shadow: none; border: none; background: white; }
-            .header { background: #0f172a !important; -webkit-print-color-adjust: exact; }
-            .left-column, .right-column { background: white !important; color: black; }
-            .section-title { color: black; }
-            .text-muted { color: #64748b !important; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
     <div class="resume-container">
-        <header class="header">
+        <!-- Header -->
+        <div class="header">
             <div class="header-content">
                 <div class="profile-img-container">
                     <img src="assets/perfil.jpg" alt="Esteban Gabrielloni" class="profile-img">
                 </div>
                 <div class="header-text">
                     <h1>Esteban Gabrielloni</h1>
-                    <p class="title">Data Analyst | Python Developer | Process Automation</p>
+                    <div class="title">Data Analyst | Python Developer | Process Automation Specialist</div>
                     <div class="contact-bar">
-                        <div class="contact-item">📱 +54 341 613-9459</div>
-                        <div class="contact-item">✉️ egabrielloni@yahoo.com.ar</div>
-                        <div class="contact-item">📍 Rosario, Argentina</div>
+                        <div class="contact-item"><i data-lucide="phone"></i> +54 341 613-9459</div>
+                        <div class="contact-item"><i data-lucide="mail"></i> <a
+                                href="mailto:egabrielloni@yahoo.com.ar">egabrielloni@yahoo.com.ar</a></div>
+                        <div class="contact-item"><i data-lucide="map-pin"></i> Rosario, Argentina</div>
+                        <div class="contact-item"><i data-lucide="linkedin"></i> <a
+                                href="https://linkedin.com/in/egabrielloni/"
+                                target="_blank">linkedin.com/in/egabrielloni/</a></div>
+                        <div class="contact-item"><i data-lucide="briefcase"></i> <a
+                                href="https://esteban2507.github.io/portfolio/">Portfolio:
+                                esteban2507.github.io/portfolio/</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </header>
-
+        </div>
         <div class="main-content">
-            <main class="left-column">
-                <section class="section">
-                    <h2 class="section-title">🎯 Perfil Profesional</h2>
+            <div class="left-column">
+                <!-- Professional Summary -->
+                <div class="section">
+                    <div class="section-title">🎯 Perfil Profesional</div>
                     <div class="summary-box">
                         <p>
-                            Especialista con <strong>+17 años de experiencia</strong> en entornos corporativos. Lidero iniciativas de transformación digital en Cargill, optimizando la toma de decisiones mediante <strong>Python y Power BI</strong>.
+                            Especialista en Sistemas con <span class="highlight">más de 17 años de experiencia</span> en
+                            entornos corporativos multinacionales, especializado en <strong>análisis de datos,
+                                automatización de procesos y Business Intelligence</strong>. Actualmente integro
+                            el equipo de aprobadores de pagos en Cargill, y además propongo soluciones con Python y
+                            Power BI
+                            que optimizan la toma de decisiones. Combino sólidas habilidades técnicas con experiencia en
+                            gestión de pagos y control financiero, destacándome por mi enfoque proactivo en la mejora
+                            continua y la colaboración cross-functional.
                         </p>
                     </div>
-                </section>
+                </div>
 
-                <section class="section">
-                    <h2 class="section-title">💼 Experiencia</h2>
-                    
+                <!-- Experience -->
+                <div class="section">
+                    <div class="section-title">💼 Experiencia Profesional</div>
+
                     <div class="experience-item">
                         <div class="exp-header">
-                            <span class="company">Cargill Capability Center</span>
-                            <span class="date">2023 - Presente</span>
+                            <div>
+                                <div class="company">Cargill Capability Center</div>
+                                <div class="position">ITP Associate SSr - Controls & Approvals | Data Analyst Management
+                                    (DMA)</div>
+                            </div>
+                            <div class="date">2023 - Presente</div>
                         </div>
-                        <p class="position">Data Analyst Management (DMA)</p>
-                        <ul style="margin-top: 10px; padding-left: 20px; font-size: 0.9rem; color: var(--text-muted);">
-                            <li>Automatización de reportes Power BI (reducción de tiempo 40%).</li>
-                            <li>Desarrollo de scripts en Python para validación de facturas.</li>
-                        </ul>
+                        <div class="exp-description">
+                            <ul>
+                                <li>Mi principal tarea consiste en el <strong>control y aprobación de pagos a
+                                        proveedores</strong>, mediante
+                                    ERPs de gestión</li>
+                                <li>Participé del equipo <strong>DMA (Data Analyst Management)</strong>, diseñando
+                                    controles
+                                    y métricas estratégicas para el sector financiero</li>
+                                <li>Desarrollo <span class="highlight">reportes automatizados en Power BI</span> que
+                                    redujeron el tiempo de análisis de pagos en un 40%</li>
+                                <li>Implementé soluciones de <strong>automatización con Python</strong> para
+                                    clasificación y validación de facturas</li>
+                                <li>Gestión end-to-end del proceso de aprobación de registros en ERP y liberación de
+                                    pagos
+                                    a proveedores regionales de LATAM</li>
+                                <li>Diseño de KPIs y dashboards ejecutivos para la toma de decisiones de liderazgo
+                                    regional</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="experience-item">
                         <div class="exp-header">
-                            <span class="company">Easy Argentina</span>
-                            <span class="date">2006 - 2019</span>
+                            <div>
+                                <div class="company">Cargill Capability Center</div>
+                                <div class="position">ITP Associate Jr - Invoice Capturing</div>
+                            </div>
+                            <div class="date">2022 - 2023</div>
                         </div>
-                        <p class="position">Responsable de Tesorería</p>
-                        <p style="font-size: 0.9rem; color: var(--text-muted);">Gestión de flujos de caja superiores a $1M diario y liderazgo de equipo de 8 personas.</p>
+                        <div class="exp-description">
+                            <ul>
+                                <li>Digitalicé y clasifiqué <span class="highlight">más de 1000 facturas
+                                        mensuales</span> con 99.5% de precisión</li>
+                                <li>Optimicé el sistema de archivo físico y digital, reduciendo el tiempo de búsqueda de
+                                    documentos en 60%</li>
+                                <li>Coordiné la logística de documentación entre sedes y empresas de archivo externas
+                                </li>
+                                <li>Punto de contacto clave para resolución de requerimientos documentales de múltiples
+                                    sectores</li>
+                            </ul>
+                        </div>
                     </div>
-                </section>
-            </main>
 
-            <aside class="right-column">
-                <section class="section">
-                    <h2 class="section-title">🛠️ Skills</h2>
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <div>
+                                <div class="company">Cargill Villa Gobernador Gálvez</div>
+                                <div class="position">Auxiliar de Recursos Humanos</div>
+                            </div>
+                            <div class="date">2022</div>
+                        </div>
+                        <div class="exp-description">
+                            <ul>
+                                <li>Pocisión temporal en donde gestioné el control y clasificación de horas para <span
+                                        class="highlight">
+                                        el personal de la planta</span></li>
+                                <li>Implementé mejoras en el seguimiento de novedades que redujeron errores de payroll
+                                    durante el tiempo que duró la falla en el sistema Kronos.</li>
+                                <li>Brindé soporte integral al personal en consultas de RRHH y asistencia</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="exp-header">
+                            <div>
+                                <div class="company">Easy Argentina (Cencosud S.A.)</div>
+                                <div class="position">Responsable de Tesorería</div>
+                            </div>
+                            <div class="date">2006 - 2019</div>
+                        </div>
+                        <div class="exp-description">
+                            <ul>
+                                <li>Supervisé operaciones de tesorería con <span class="highlight">movimientos diarios
+                                        superiores a $1M ARS</span></li>
+                                <li>Lideré un equipo de 8 cajeros, implementando controles que eliminaron discrepancias
+                                    de caja</li>
+                                <li>Diseñé reportes gerenciales para análisis de flujo de caja y medios de pago</li>
+                                <li>Progresión de carrera: Vendedor y Repositor → Cajero → Supervisor de Cajas →
+                                    Responsable de Tesorería</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <!-- Skills -->
+                <div class="section">
+                    <div class="section-title">🛠️ Habilidades Técnicas</div>
                     <div class="skills-grid">
                         <div class="skill-category">
-                            <h4>Data & BI</h4>
+                            <h4>Análisis de Datos</h4>
                             <div class="skill-tags">
-                                <span class="skill-tag">Power BI</span>
+                                <span class="skill-tag highlight-skill">Power BI</span>
+                                <span class="skill-tag highlight-skill">Excel Avanzado</span>
                                 <span class="skill-tag">DAX</span>
-                                <span class="skill-tag">Excel Adv</span>
+                                <span class="skill-tag">M Language</span>
+                                <span class="skill-tag">VBA</span>
+                                <span class="skill-tag">Macros</span>
                             </div>
                         </div>
-                        <div class="skill-category">
-                            <h4>Dev</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Python</span>
-                                <span class="skill-tag">Pandas</span>
-                                <span class="skill-tag">Automation</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                <section class="section">
-                    <h2 class="section-title">🏆 Logros</h2>
-                    <div class="achievement-card">
-                        <span class="achievement-value">↓ 40%</span>
-                        <span class="achievement-label">Tiempo de análisis</span>
+                        <div class="skill-category">
+                            <h4>Programación</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag highlight-skill">Python</span>
+                                <span class="skill-tag">Pandas</span>
+                                <span class="skill-tag">NumPy</span>
+                                <span class="skill-tag">Automatización</span>
+                                <span class="skill-tag">Web Scraping</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Gestión & Control</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Procesos AP/AR</span>
+                                <span class="skill-tag">Control Financiero</span>
+                                <span class="skill-tag">KPIs & Métricas</span>
+                                <span class="skill-tag">Mejora Continua</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Idiomas</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag highlight-skill">Español: Nativo</span>
+                                <span class="skill-tag">Inglés: B1 (Intermedio)</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="achievement-card">
-                        <span class="achievement-value">99.5%</span>
-                        <span class="achievement-label">Precisión en datos</span>
+                </div>
+
+                <!-- Education -->
+                <div class="section">
+                    <div class="section-title">🎓 Educación</div>
+
+                    <div class="education-item">
+                        <div class="edu-year">2002 - 2006</div>
+                        <div class="edu-title">Ingeniería en Sistemas de Información</div>
+                        <div class="edu-school">Universidad Tecnológica Nacional (UTN)<br>Rosario,
+                            Argentina<br><em>Estudios de grado (incompleto)</em></div>
                     </div>
-                </section>
-            </aside>
+
+                    <div class="education-item">
+                        <div class="edu-year">1997 - 2001</div>
+                        <div class="edu-title">Bachiller en Administración</div>
+                        <div class="edu-school">EEM 325<br>Capitán Bermúdez</div>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="section">
+                    <div class="section-title">📜 Certificaciones</div>
+
+                    <div class="cert-item">
+                        <strong>Power BI</strong><br>
+                        Análisis de Datos y Business Intelligence
+                    </div>
+                    <div class="cert-item">
+                        <strong>Analista Programador</strong><br>
+                        Diseñador con Entorno Windows
+                    </div>
+                    <div class="cert-item">
+                        <strong>Auxiliar en Administración</strong><br>
+                        Gestión de Empresas
+                    </div>
+                </div>
+
+                <!-- Key Achievements -->
+                <div class="section">
+                    <div class="section-title">🏆 Logros Clave</div>
+                    <div class="achievements-grid">
+                        <div class="achievement-card">
+                            <span class="achievement-value">↓ 40%</span>
+                            <span class="achievement-label">Reducción en tiempo de análisis de datos</span>
+                        </div>
+                        <div class="achievement-card">
+                            <span class="achievement-value">1K+</span>
+                            <span class="achievement-label">Facturas procesadas mensualmente</span>
+                        </div>
+                        <div class="achievement-card">
+                            <span class="achievement-value">99.5%</span>
+                            <span class="achievement-label">Precisión en captura de datos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 
 </html>
